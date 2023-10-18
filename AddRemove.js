@@ -37,20 +37,31 @@ function addItemWithDesc(e){
   itemList.appendChild(li)
 
   //we are storing the data in localstorage
-  localStorage.setItem('ItemName',`${input.value}`)
-  localStorage.setItem('itemDesc',`${Desc.value}`)
+  // localStorage.setItem('ItemName',`${input.value}`)
+  // localStorage.setItem('itemDesc',`${Desc.value}`)
  //printing data in local storage
-  console.log(localStorage.getItem('ItemName'))
-  console.log(localStorage.getItem('itemDesc'))
+  // console.log(localStorage.getItem('ItemName'))
+  // console.log(localStorage.getItem('itemDesc'))
 
   //we are storing the object in localstorage as an string
   var inputObj={
     'ItemName':`${input.value}`,
     'itemDesc':`${Desc.value}`
   }
-  var inputObj_serialized=JSON.stringify(inputObj)
-  localStorage.setItem('input_details',inputObj_serialized)
-  localStorage.getItem(inputObj_serialized)
+  // var inputObj_serialized=JSON.stringify(inputObj)
+  // localStorage.setItem('input_details',inputObj_serialized)
+  // localStorage.getItem(inputObj_serialized)
+
+  //storing multiple objects in local storage
+  var localData=localStorage.getItem(`${input.value}`)
+  if(localData){
+    localData=JSON.parse(localData)
+  }
+  else{
+    localData=[]
+  }
+  localData.push(inputObj)
+  localStorage.setItem(`${input.value}`,JSON.stringify(localData))
 
 }
 
