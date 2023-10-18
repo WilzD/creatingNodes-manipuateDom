@@ -3,10 +3,10 @@ var form=document.getElementById('addForm')
 var itemList=document.getElementById('items')
 
 //add event ->submit karne par list me wo item add hojaye
-form.addEventListener('submit',addItem)
+form.addEventListener('submit',addItemWithDesc)
 
 //event function when submit
-function addItem(e){
+function addItemWithDesc(e){
   e.preventDefault()
   
   //this is input we give
@@ -23,6 +23,12 @@ function addItem(e){
   button.className='btn btn-danger btn-sm float-right delete'
   var buttonText=document.createTextNode('X')
   button.appendChild(buttonText)
+
+  //we are desc value to the li
+  var Desc=document.getElementById('desc')
+  var DescText=document.createTextNode(' : '+Desc.value)
+  li.appendChild(DescText)
+  console.log(li)
 
   //we add the button to li
   li.appendChild(button)
@@ -43,3 +49,35 @@ function deleteItem(e){
         }
     }
 }
+
+//search item by name and desc
+var filter=document.getElementById('filter')
+filter.addEventListener('keyup',filterItems)
+
+function filterItems(e){
+  //we are converting to lowercase everything which search
+  var text=e.target.value.toLowerCase()
+  //where we have to search this? in li
+  var items=itemList.getElementsByTagName('li')
+  //console.log(items)
+  //gives result in html collection so we have to convert it into array
+
+  //convert in array
+  Array.from(items).forEach(function(item){
+    //we store the items in itemname
+    var itemName=item.firstChild.textContent //first child is item name
+    var desc=item.firstChild.nextSibling.textContent //first childs nextsibling is desc
+    if(itemName.toLowerCase().indexOf(text)!=-1 || desc.toLowerCase().indexOf(text)!=-1 ){ //if -1 then there is no match 
+          item.style.display='block' 
+    }
+    else{
+        // -1(there is no math of text with items)
+        item.style.display='none'
+    }
+  })
+
+  
+
+
+}
+
