@@ -38,10 +38,20 @@ function addItemWithDesc(e){
 
   //we are storing the data in localstorage
   localStorage.setItem('ItemName',`${input.value}`)
-  localStorage.setItem('itemDesc',`${desc.value}`)
+  localStorage.setItem('itemDesc',`${Desc.value}`)
  //printing data in local storage
   console.log(localStorage.getItem('ItemName'))
   console.log(localStorage.getItem('itemDesc'))
+
+  //we are storing the object in localstorage as an string
+  var inputObj={
+    'ItemName':`${input.value}`,
+    'itemDesc':`${Desc.value}`
+  }
+  var inputObj_serialized=JSON.stringify(inputObj)
+  localStorage.setItem('input_details',inputObj_serialized)
+  localStorage.getItem(inputObj_serialized)
+
 }
 
 //delete the li from itemlist
