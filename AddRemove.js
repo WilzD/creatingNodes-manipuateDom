@@ -35,6 +35,13 @@ function addItemWithDesc(e){
 
   //we add li to item list
   itemList.appendChild(li)
+
+  //we are storing the data in localstorage
+  localStorage.setItem('ItemName',`${input.value}`)
+  localStorage.setItem('itemDesc',`${desc.value}`)
+ //printing data in local storage
+  console.log(localStorage.getItem('ItemName'))
+  console.log(localStorage.getItem('itemDesc'))
 }
 
 //delete the li from itemlist
@@ -75,7 +82,6 @@ function filterItems(e){
         item.style.display='none'
     }
   })
-
   
 
 
