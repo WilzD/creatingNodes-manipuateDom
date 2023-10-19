@@ -51,19 +51,22 @@ function addItemWithDesc(e){
   // var inputObj_serialized=JSON.stringify(inputObj)
   // localStorage.setItem('input_details',inputObj_serialized)
   // localStorage.getItem(inputObj_serialized)
-
-  //storing multiple objects in local storage
-  var localData=localStorage.getItem(`${input.value}`)
-  if(localData){
-    localData=JSON.parse(localData)
-  }
-  else{
-    localData=[]
-  }
-  localData.push(inputObj)
-  localStorage.setItem(`${input.value}`,JSON.stringify(localData))
-
 }
+
+//storing multiple object in local storage
+function saveTOlocalStorage(e){
+e.preventDefault()
+const name=e.target.item_name.value
+const desc=e.target.item_desc.value
+
+var itemObj={
+  name,
+  desc
+}
+localStorage.setItem(itemObj.name,JSON.stringify(itemObj))
+}
+
+
 
 //delete the li from itemlist
 itemList.addEventListener('click',deleteItem)
@@ -73,7 +76,11 @@ function deleteItem(e){
         var input=document.getElementById('item').value
         if(confirm(`are you sure to delete ${input}`)){
             var li=e.target.parentElement // because we want to delete the li and e(event) has li as parent element 
-            itemList.removeChild(li) //so we remove that child from the item list i.e stored in li 
+            itemList.removeChild(li) //so we remove that child from the item list i.e stored in li
+            
+            //deleting the object from local storage
+            var deleteObj=JSON.parse(localStorage.getItem(li.firstChild.textContent)) //finding the text content as object
+            localStorage.removeItem(deleteObj.name) //giving the name as the key to remove
         }
     }
 }
